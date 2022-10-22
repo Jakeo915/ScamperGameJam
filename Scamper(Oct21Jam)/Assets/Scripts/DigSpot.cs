@@ -4,13 +4,34 @@ using UnityEngine.SceneManagement;
 public class DigSpot : MonoBehaviour
 {
     public string scene;
-    public float mouseXPosInNewScene;
-    public float mouseYPosInNewScene;
+    public int spotNumber;
+    public int pairedSpotNumber;
+
+    public Vector2 pairedSpotPos;
+
+    private SpriteRenderer spriteRenderer;
+    public Sprite closed;
+    public Sprite open;
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (GameVariables.digSpots[pairedSpotNumber - 1])
+        {
+            spriteRenderer.sprite = open;
+        }
+        else
+        {
+            spriteRenderer.sprite = closed;
+        }
+    }
 
     public void LoadScene()
     {
+        GameVariables.digSpots[spotNumber - 1] = true;
         SceneManager.LoadScene(scene);
-        GameVariables.mouseXPos = mouseXPosInNewScene;
-        GameVariables.mouseYPos = mouseYPosInNewScene;
+        GameVariables.mouseXPos = pairedSpotPos.x;
+        GameVariables.mouseYPos = pairedSpotPos.y;
     }
 }
