@@ -6,14 +6,17 @@ public class Dig : MonoBehaviour
     public AudioClip solidSound;
     public AudioClip hollowSound;
 
+    private int knockDelay = 25;
+
     [SerializeField] Transform digCheck;
     [SerializeField] private LayerMask digLayer;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F) && knockDelay < 0)
         {
+            knockDelay = 25;
             if (IsDigSpot())
             {
                 source.PlayOneShot(hollowSound);
@@ -23,6 +26,11 @@ public class Dig : MonoBehaviour
                 source.PlayOneShot(solidSound);
             }
         }
+    }
+
+    void FixedUpdate()
+    {
+        knockDelay--;
     }
 
     void OnTriggerStay2D(Collider2D collision)
