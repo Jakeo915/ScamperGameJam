@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MouseController : MonoBehaviour
 {
@@ -21,7 +20,7 @@ public class MouseController : MonoBehaviour
 
     void Start()
     {
-        GetComponent<Transform>().position = new Vector2(GameVariables.mouseXPos, GameVariables.mouseYPos);
+        GetComponent<Transform>().position = GameVariables.spawnPoint;
     }
 
     // Update is called once per frame
@@ -87,6 +86,6 @@ public class MouseController : MonoBehaviour
 
     public void Die()
     {
-        SceneManager.LoadScene("Death");
+        transform.position = GameVariables.spawnPoint;
     }
 }

@@ -31,7 +31,6 @@ public class DigSpot : MonoBehaviour
     {
         GameVariables.digSpots[spotNumber - 1] = true;
         SceneManager.LoadScene(scene);
-        GameVariables.mouseXPos = pairedSpotPos.x;
-        GameVariables.mouseYPos = pairedSpotPos.y;
+        GameVariables.spawnPoint = pairedSpotPos;
     }
 }
