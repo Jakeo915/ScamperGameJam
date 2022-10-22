@@ -20,7 +20,7 @@ public class MouseController : MonoBehaviour
 
     void Start()
     {
-        GetComponent<Transform>().position = new Vector2(GameVariables.mouseXPos, GameVariables.mouseYPos);
+        GetComponent<Transform>().position = GameVariables.spawnPoint;
     }
 
     // Update is called once per frame
@@ -82,5 +82,10 @@ public class MouseController : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+    public void Die()
+    {
+        transform.position = GameVariables.spawnPoint;
     }
 }
