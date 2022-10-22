@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MouseController : MonoBehaviour
 {
@@ -82,5 +83,10 @@ public class MouseController : MonoBehaviour
             localScale.x *= -1f;
             transform.localScale = localScale;
         }
+    }
+
+    public void Die()
+    {
+        SceneManager.LoadScene("Death");
     }
 }
