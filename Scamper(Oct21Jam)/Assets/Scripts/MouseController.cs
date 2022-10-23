@@ -95,7 +95,7 @@ public class MouseController : MonoBehaviour
 
         if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
         {
-            rb.velocity = new Vector2(rb.velocity.x, 19f);
+            rb.velocity = new Vector2(rb.velocity.x, 20f);
 
             jumpBufferCounter = 0;
         }
