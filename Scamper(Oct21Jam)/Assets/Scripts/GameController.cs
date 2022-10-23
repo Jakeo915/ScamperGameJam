@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour
     public bool isHollow;
     public GameObject outsideWall;
     public GameObject insideWall;
+    public GameObject insideWallTunnels;
+    [SerializeField] SpriteRenderer insideSprite;
+    [SerializeField] SpriteRenderer outsideSprite;
 
     public MouseController scamper;
 
@@ -21,7 +24,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        spawnPoint = new Vector2(-415.34f, 1f);
+        spawnPoint = new Vector2(-171f, -3.8f);
         inWall = false;
         isHollow = true;
     }
@@ -55,18 +58,21 @@ public class GameController : MonoBehaviour
                 {
                     inWall = false;
                     insideWall.GetComponent<TilemapCollider2D>().enabled = false;
-                    insideWall.GetComponent<TilemapRenderer>().enabled = false;
+                    insideSprite.enabled = false;
                     outsideWall.GetComponent<TilemapCollider2D>().enabled = true;
-                    outsideWall.GetComponent<TilemapRenderer>().enabled = true;
+                    outsideSprite.enabled = true;
+                    insideWallTunnels.GetComponent<TilemapRenderer>().enabled = false;
+
                 }
                 // Go in wall
                 else
                 {
                     inWall = true;
                     insideWall.GetComponent<TilemapCollider2D>().enabled = true;
-                    insideWall.GetComponent<TilemapRenderer>().enabled = true;
+                    insideSprite.enabled = true;
                     outsideWall.GetComponent<TilemapCollider2D>().enabled = false;
-                    outsideWall.GetComponent<TilemapRenderer>().enabled = false;
+                    outsideSprite.enabled = false;
+                    insideWallTunnels.GetComponent<TilemapRenderer>().enabled = true;
                 }
 
                 scamper.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
