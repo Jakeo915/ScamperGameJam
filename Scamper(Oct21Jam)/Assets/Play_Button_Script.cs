@@ -8,6 +8,6 @@ public class Play_Button_Script : MonoBehaviour
     public void PlayGame()
     {
         // Load main game scene
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 }

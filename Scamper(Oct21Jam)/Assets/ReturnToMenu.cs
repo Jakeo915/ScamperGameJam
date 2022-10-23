@@ -7,6 +7,7 @@ public class ReturnToMenu : MonoBehaviour
 {
     public void ReturnGame()
     {
-        SceneManager.LoadScene(1);
+        // Loads the Main menu again.
+        SceneManager.LoadScene(0);
     }
 }

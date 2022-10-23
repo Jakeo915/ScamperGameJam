@@ -8,6 +8,6 @@ public class HowToPlayButtonScript : MonoBehaviour
     public void HowToPlayGame()
     {
         // Loads into image that explains how to play the game.
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 }
