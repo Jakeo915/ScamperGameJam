@@ -6,17 +6,11 @@ public class DigSpots : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        //if (collision.gameObject.CompareTag("HollowCheck"))
-        //{
         controller.isHollow = true;
-        //}
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        //if (collision.gameObject.CompareTag("HollowCheck"))
-        //{
         controller.isHollow = false;
-        //}
     }
 }

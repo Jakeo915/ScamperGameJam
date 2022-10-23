@@ -11,6 +11,7 @@ public class MouseController : MonoBehaviour
     private bool isFacingRight = true;
 
     private Rigidbody2D rb;
+    private Animator mouseAnimator;
 
     [SerializeField] public GameController controller;
     [SerializeField] Transform groundCheck;
@@ -20,6 +21,7 @@ public class MouseController : MonoBehaviour
     {
         GetComponent<Transform>().position = controller.spawnPoint;
         rb = GetComponent<Rigidbody2D>();
+        mouseAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -97,6 +99,7 @@ public class MouseController : MonoBehaviour
         }
 
         Flip();
+        mouseAnimator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
     }
 
     public bool IsGrounded()
