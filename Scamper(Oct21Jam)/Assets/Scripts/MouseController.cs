@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MouseController : MonoBehaviour
 {
+    public Animator animator;
+
     private float horizontal;
     private float speed = 8f;
     private float jumpPower = 20f;
@@ -27,6 +29,8 @@ public class MouseController : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
 
         if (IsGrounded())
         {
