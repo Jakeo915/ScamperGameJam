@@ -30,6 +30,15 @@ public class MouseController : MonoBehaviour
         bool movingLeft = false;
         bool movingRight = false;
 
+        if (IsGrounded())
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                mouseAnimator.SetTrigger("getKnock");
+                mouseAnimator.SetBool("inWall", false);
+            }
+        }
+
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             movingLeft = true;
@@ -94,6 +103,7 @@ public class MouseController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            mouseAnimator.SetTrigger("isJumping");
 
             coyoteTimeCounter = 0f;
         }

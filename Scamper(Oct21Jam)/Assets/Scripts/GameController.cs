@@ -37,6 +37,7 @@ public class GameController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F) && knockDelay < 0)
             {
                 knockDelay = 25;
+
                 if (isHollow)
                 {
                     source.PlayOneShot(hollowSound);
