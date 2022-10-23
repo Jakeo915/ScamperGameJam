@@ -2,31 +2,67 @@ using UnityEngine;
 
 public class MouseController : MonoBehaviour
 {
-    private float horizontal;
-    private float speed = 8f;
-    private float jumpPower = 20f;
-
     private float coyoteTime = .15f;
     private float coyoteTimeCounter;
 
-    private float jumpBufferTIme = .1f;
+    private float jumpBufferTime = .1f;
     private float jumpBufferCounter;
 
     private bool isFacingRight = true;
 
-    [SerializeField] private Rigidbody2D rb;
+    private Rigidbody2D rb;
+
+    [SerializeField] public GameController controller;
     [SerializeField] Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
     void Start()
     {
-        GetComponent<Transform>().position = GameVariables.spawnPoint;
+        GetComponent<Transform>().position = controller.spawnPoint;
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        horizontal = Input.GetAxisRaw("Horizontal");
+        bool movingLeft = false;
+        bool movingRight = false;
+
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        {
+            movingLeft = true;
+        }
+        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+        {
+            movingRight = true;
+        }
+
+        if (movingLeft || movingRight)
+        {
+            if (!movingRight)
+            {
+                rb.velocity = new Vector2(-10, rb.velocity.y);
+            }
+            else if (!movingLeft)
+            {
+                rb.velocity = new Vector2(10, rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
+        }
+        else
+        {
+            if (!IsGrounded())
+            {
+                rb.velocity = new Vector2((float)(rb.velocity.x / 1.01), rb.velocity.y);
+            }
+            else
+            {
+                rb.velocity = new Vector2((float)(rb.velocity.x / 1.2), rb.velocity.y);
+            }
+        }
 
         if (IsGrounded())
         {
@@ -37,9 +73,9 @@ public class MouseController : MonoBehaviour
             coyoteTimeCounter -= Time.deltaTime;
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKey(KeyCode.Space))
         {
-            jumpBufferCounter = jumpBufferTIme;
+            jumpBufferCounter = jumpBufferTime;
         }
         else
         {
@@ -48,12 +84,12 @@ public class MouseController : MonoBehaviour
 
         if (coyoteTimeCounter > 0f && jumpBufferCounter > 0f)
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+            rb.velocity = new Vector2(rb.velocity.x, 19f);
 
             jumpBufferCounter = 0;
         }
 
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+        if (Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
 
@@ -63,19 +99,14 @@ public class MouseController : MonoBehaviour
         Flip();
     }
 
-    private void FixedUpdate()
+    public bool IsGrounded()
     {
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.02f, groundLayer);
     }
 
     private void Flip()
     {
-        if ((isFacingRight && horizontal < 0f) || (!isFacingRight && horizontal > 0f))
+        if ((isFacingRight && rb.velocity.x < 0f) || (!isFacingRight && rb.velocity.x > 0f))
         {
             isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
@@ -86,6 +117,7 @@ public class MouseController : MonoBehaviour
 
     public void Die()
     {
-        transform.position = GameVariables.spawnPoint;
+        // Play death animation probably
+        transform.position = controller.spawnPoint;
     }
 }

@@ -4,10 +4,10 @@ public class MouseTrap : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collision)
     {
-        MouseController mouse = collision.GetComponent<MouseController>();
-        if (mouse != null)
+        MouseController scamper = collision.GetComponent<MouseController>();
+        if (scamper != null)
         {
-            mouse.Die();
+            scamper.Die();
         }
     }
 }
