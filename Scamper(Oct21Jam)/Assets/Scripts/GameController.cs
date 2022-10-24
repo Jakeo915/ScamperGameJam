@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public GameObject insideWallTunnels;
     [SerializeField] SpriteRenderer insideSprite;
     [SerializeField] SpriteRenderer outsideSprite;
+    [SerializeField] Animator mouseAnimator;
 
     public MouseController scamper;
 
@@ -78,6 +79,7 @@ public class GameController : MonoBehaviour
 
                 scamper.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
                 scamper.GetComponent<Rigidbody2D>().AddForce(Vector2.up * .001f);
+                mouseAnimator.SetBool("inWall", inWall);
             }
         }
     }

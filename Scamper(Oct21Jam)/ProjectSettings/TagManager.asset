@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - HollowCheck
+  - End
   layers:
   - Default
   - TransparentFX

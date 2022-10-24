@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MouseController : MonoBehaviour
 {
@@ -25,19 +26,20 @@ public class MouseController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void Update()
     {
-        bool movingLeft = false;
-        bool movingRight = false;
-
         if (IsGrounded())
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
                 mouseAnimator.SetTrigger("getKnock");
-                mouseAnimator.SetBool("inWall", false);
             }
         }
+    }
+    void FixedUpdate()
+    {
+        bool movingLeft = false;
+        bool movingRight = false;
 
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
@@ -132,5 +134,13 @@ public class MouseController : MonoBehaviour
     {
         // Play death animation probably
         transform.position = controller.spawnPoint;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("End"))
+        {
+            SceneManager.LoadScene(3);
+        }
     }
 }
